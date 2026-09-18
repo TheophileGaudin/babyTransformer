@@ -1,4 +1,6 @@
 # babyTransformer
+Transformers the key ingredient of Large Language Models (LLMs) which are driving the current AI boom.
+
 A 208-parameter transformer that is small enough to be fully transparent for self-learning and teaching purposes.
 - `weights.json` contains the weights of the model
 - `run_transformer` contains a prompt and running it predicts the probability distribution for the next word
