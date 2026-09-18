@@ -3,8 +3,8 @@
 
 This repo contains a 208-parameter transformer that is small enough to be fully transparent for self-learning and teaching purposes.
 - `weights.json` contains the weights of the model
-- `run_transformer` contains a prompt and running it predicts the probability distribution for the next word
-- `train_transformer` is a script to train the model starting from random weights
+- `run_transformer.py` contains a prompt and running it predicts the probability distribution for the next word
+- `train_transformer.py` is a script to train the model starting from random weights
 
 To use:
 1. Make sure Python is installed
