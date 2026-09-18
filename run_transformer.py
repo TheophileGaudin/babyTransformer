@@ -6,7 +6,7 @@ prompt                        = ". the dog"
 # ==============================  MODEL ==============================
 
 
-w                             = {k: np.array(v) if k != "vocab" else v for k, v in json.load(open("weights.json")).items()}                  #here weights are being read in
+w                             = {k: np.array(v) if k != "vocab" else v for k, v in json.load(open("weights.json")).items()}                  # here weights are being read in
 vocab, d                      = w["vocab"], w["E"].shape[1]
 words                         = prompt.split()
 tokens                        = [vocab.index(t) for t in words]
@@ -18,14 +18,14 @@ x                             = w["E"][tokens] + w["Pos"][:n]
 # 2. Self-attention: each word looks at itself and earlier words
 Q, K, V                       = x @ w["Wq"].T, x @ w["Wk"].T, x @ w["Wv"].T
 scores                        = Q @ K.T / np.sqrt(d)
-scores[np.triu_indices(n, 1)] = -np.inf                                # causal mask: a word cannot look ahead
-softmax                       = lambda z: np.exp(z - z.max(-1, keepdims=True)) / np.exp(z - z.max(-1, keepdims=True)).sum(-1, keepdims=True) #define the softmx
+scores[np.triu_indices(n, 1)] = -np.inf                                                                                                      # causal mask: a word cannot look ahead
+softmax                       = lambda z: np.exp(z - z.max(-1, keepdims=True)) / np.exp(z - z.max(-1, keepdims=True)).sum(-1, keepdims=True) # define the softmax
 A                             = softmax(scores)
-x_att                         = x + (A @ V) @ w["Wo"].T                # residual: attention output added to x
+x_att                         = x + (A @ V) @ w["Wo"].T                                                                                      # residual: attention output added to x
 
 # 3. Feed-forward, applied to each position separately
 hidden                        = np.maximum(0, x_att @ w["W1"].T + w["b1"])
-x_ffn                         = x_att + hidden @ w["W2"].T + w["b2"]   # residual again
+x_ffn                         = x_att + hidden @ w["W2"].T + w["b2"]                                                                         # residual again
 
 # 4. Score every vocabulary word against the last position's vector
 logits                        = x_ffn[-1] @ w["E"].T
